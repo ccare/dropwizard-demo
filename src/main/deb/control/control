@@ -1,0 +1,8 @@
+Package: ${project.name}
+Version: ${project.version}
+Priority: extra
+Architecture: all
+Maintainer: Charles Care
+Section: utils
+Depends: base-passwd, adduser (>= 3.11)
+Description: Demo of a simple DropWizard app, with deb packaging

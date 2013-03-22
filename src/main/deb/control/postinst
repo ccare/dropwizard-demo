@@ -1,0 +1,15 @@
+#!/bin/sh
+mkdir -p /var/log/${project.name}                                                                                       
+mkdir -p /opt/${project.name}    
+
+if ! getent group "${project.username}" > /dev/null 2>&1 ; then                                                            
+    addgroup --system "${project.username}" --quiet                                                                        
+fi                                                                                                                    
+if ! id ${project.username} > /dev/null 2>&1 ; then                                                                         
+    adduser --system --home /opt/${project.name} --no-create-home --ingroup "${project.username}" --disabled-password --shell /bin/false "${project.username}"                                                                                               
+fi                                                                                                                    
+
+chown -R ${project.username} /opt/${project.name} /var/log/${project.name}                                                        
+chmod 750 /var/log/${project.name} 
+
+start ${project.name} 

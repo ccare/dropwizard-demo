@@ -22,6 +22,7 @@
         <!-- use UTF-8 for everything -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.username>dropwizarddemo</project.username>
     </properties>
     
     <build>
@@ -67,6 +68,65 @@
                                     <mainClass>com.metadatis.dwdemo.config.DemoService</mainClass>
                                 </transformer>
                             </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <executions>
+                    <execution>
+                        <id>copy-deb-resources</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/deb</outputDirectory>
+                            <resources> 
+                                <resource>
+                                    <directory>src/main/deb</directory>
+                                    <filtering>true</filtering>
+                                </resource>         
+                            </resources>              
+                        </configuration>            
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>jdeb</artifactId>
+                <groupId>org.vafer</groupId>
+                <executions>
+                    <execution>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>jdeb</goal>
+                        </goals>
+                        <configuration>
+                            <controlDir>${project.build.directory}/deb/control</controlDir>
+                            <deb>${project.build.directory}/${project.build.finalName}.deb</deb>
+                            <dataSet>
+                                <data>
+                                    <src>${project.build.directory}/${project.build.finalName}.jar</src>
+                                    <type>file</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/opt/${project.name}/lib</prefix>
+                                    </mapper>
+                                </data>
+                                <data>
+                                    <type>link</type>
+                                    <symlink>true</symlink>
+                                    <linkName>/opt/${project.name}/lib/${project.name}.jar</linkName>
+                                    <linkTarget>/opt/${project.name}/lib/${project.build.finalName}.jar</linkTarget>
+                                </data>
+                                <data>
+                                    <src>${project.build.directory}/deb</src>
+                                    <type>directory</type>
+                                    <excludes>control/**</excludes>
+                                </data>
+                            </dataSet>
                         </configuration>
                     </execution>
                 </executions>
