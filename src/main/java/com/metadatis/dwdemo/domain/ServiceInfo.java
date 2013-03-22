@@ -1,7 +1,5 @@
 package com.metadatis.dwdemo.domain;
 
-import java.util.Date;
-
 public class ServiceInfo {
 
 	private final long currentTimestamp;

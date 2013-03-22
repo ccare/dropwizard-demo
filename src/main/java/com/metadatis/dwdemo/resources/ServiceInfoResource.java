@@ -5,6 +5,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.google.inject.Inject;
+import com.metadatis.dwdemo.config.DemoConfiguration;
 import com.metadatis.dwdemo.domain.ServiceInfo;
 import com.yammer.metrics.annotation.Timed;
 
@@ -13,6 +15,11 @@ public class ServiceInfoResource {
 
     private final String serviceName;
 
+    @Inject
+    public ServiceInfoResource(DemoConfiguration configuration) {
+        this.serviceName = configuration.getServiceName();
+    }
+    
     public ServiceInfoResource(String serviceName) {
         this.serviceName = serviceName;
     }
