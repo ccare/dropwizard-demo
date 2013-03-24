@@ -9,7 +9,11 @@ if ! id ${project.username} > /dev/null 2>&1 ; then
     adduser --system --home /opt/${project.name} --no-create-home --ingroup "${project.username}" --disabled-password --shell /bin/false "${project.username}"                                                                                               
 fi                                                                                                                    
 
-chown -R ${project.username} /opt/${project.name} /var/log/${project.name}                                                        
-chmod 750 /var/log/${project.name} 
+chown -R ${project.username}:${project.username} /opt/${project.name}
+chown -R ${project.username}:${project.username} /var/log/${project.name}
 
-start ${project.name} 
+chmod 770 /var/log/${project.name}                                                      
+chmod 770 /opt/${project.name}/env.sh                                                
+chmod 770 /opt/${project.name}/start.sh 
+
+start ${project.name}

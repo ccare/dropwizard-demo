@@ -4,5 +4,5 @@ Priority: extra
 Architecture: all
 Maintainer: Charles Care
 Section: utils
-Depends: base-passwd, adduser (>= 3.11)
+Depends: base-passwd, adduser (>= 3.11), openjdk-6-jdk | openjdk-7-jdk
 Description: Demo of a simple DropWizard app, with deb packaging

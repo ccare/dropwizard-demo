@@ -5,6 +5,8 @@
     <artifactId>dropwizard-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
  
+    <name>dropwizard-demo</name>
+ 
     <dependencies>
         <dependency>
             <groupId>com.hubspot.dropwizard</groupId>
@@ -95,8 +97,41 @@
                 </executions>
             </plugin>
             <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                  <execution>
+                    <id>renameUpstartConf</id>
+                    <phase>prepare-package</phase>
+                    <configuration>
+                      <target>
+                        <move file="${project.build.directory}/deb/etc/init/project.conf"
+                          tofile="${project.build.directory}/deb/etc/init/${project.name}.conf" />
+                        <move file="${project.build.directory}/deb/opt/project-files"
+                          tofile="${project.build.directory}/deb/opt/dropwizard-demo" />
+                      </target>
+                    </configuration>
+                    <goals>
+                      <goal>run</goal>
+                    </goals>
+                  </execution>
+                  <execution>
+                    <id>renameStartCommand</id>
+                    <phase>prepare-package</phase>
+                    <configuration>
+                      <target>
+                      </target>
+                    </configuration>
+                    <goals>
+                      <goal>run</goal>
+                    </goals>
+                  </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <artifactId>jdeb</artifactId>
                 <groupId>org.vafer</groupId>
+                <version>1.0.1</version>
                 <executions>
                     <execution>
                         <phase>integration-test</phase>
