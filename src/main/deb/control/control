@@ -1,8 +1,8 @@
 Package: ${project.name}
 Version: ${project.version}
 Priority: extra
-Architecture: all
+Architecture: amd64
 Maintainer: Charles Care
-Section: utils
-Depends: base-passwd, adduser (>= 3.11), openjdk-6-jdk | openjdk-7-jdk
+Section: non-free
+Depends: base-passwd, adduser (>= 3.11), openjdk-7-jdk
 Description: Demo of a simple DropWizard app, with deb packaging
